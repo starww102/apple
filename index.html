@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>	</title>
+	<style type="text/css">
+		.sphere {
+			background-size: 100% 100%;
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			
+			transition: all 0.8s ease-out;
+			top: -150px;
+		}
+		.ground {
+			background: green;
+			position: absolute;
+			width: 1200px;
+			height: 50px;
+			top:  900px;
+		}
+		.main{
+			background-image: url(1.jpg);
+			background-size: cover;
+			position: absolute;
+		}
+	</style>
+</head>
+<body class="main">
+<h2>score:<span class="score">0</span></h2>
+<h3>Time:<span class="time">20</span></h3>
+<div class="ground">
+	
+</div>
+<script type="text/javascript">
+	let tops = 0
+	let point = 0
+	let score = document.querySelector('.score')
+	let images = [ '2.png', '3.png','4.png', '5.png', '2.png','3.png', '4.png','5.png', '2.png','3.png']
+	let T = 21
+    let time = document.querySelector('.time')
+
+	
+	for(var i = 0; i < 10; i++){
+		let sphere = document.createElement('div')
+		document.body.appendChild(sphere)
+		sphere.classList.add('sphere')
+		randomX = Math.round(Math.random()*1100+200)
+		sphere.style.left = randomX + 'px'
+
+	 	let index = Math.round(Math.random()*(images.length-1))     
+         sphere.style.backgroundImage = 'url('+images[index]+')'
+       
+	}
+	let sphere = document.querySelectorAll('.sphere')
+	let sphereID = 0
+
+	let changeTop = function(){
+		tops = tops + 150
+		sphere[sphereID].style.top = tops + 'px'
+		sphere[sphereID].onclick = function(){
+			sphere[sphereID].style.display = 'none'
+			point = point + 10
+			score.innerHTML = point
+		}
+		if (tops>= 1000) {
+			tops = 159
+			sphereID = sphereID + 1
+		}
+	}
+	let Timer = function(){
+         T = T - 1
+         time.innerHTML = T
+                }
+	setTimeout(changeTop, 1200)
+	setInterval (changeTop,  400)
+	int = setInterval(Timer, 1000)
+	setTimeout(endGame, 20000)
+	let endGame = function(){
+			time.innerHTML = 0
+			clearInterval(int)
+			if(point>=70){
+				alert('you win')
+			}else{
+				alert ('you lose')
+			}
+		}
+		
+
+
+</script>
+</body>
+</html>
